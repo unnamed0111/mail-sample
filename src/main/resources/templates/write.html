@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>양식 만들기</title>
+    <style>
+        @font-face {
+            font-family : 'Noto Sans KR';
+            src : url(/font/NotoSansKR-Regular.ttf);
+        }
+
+        body {
+            font-family: "Noto Sans KR", 'sans-serif';
+        }
+    </style>
+</head>
+<body>
+<form action="/make" method="post">
+    <div id="items">
+        <div class="item">
+            <div>
+                <button type="button" class="button_add" onclick="addItem()">+</button>
+                <button type="button" class="button_remvoe" onclick="removeItem(this)">-</button>
+            </div>
+            <label for="key0">키값</label><input id="key0" type="text" name="contentList[0].key" value="$NAME$"/><br/>
+            <label for="subject0">제목</label><input id="subject0" type="text" name="contentList[0].subject" value="이름"/><br/>
+            <label for="content0">내용</label><input id="content0" type="text" name="contentList[0].content" value=""/><br/>
+        </div>
+
+        <div class="item">
+            <div>
+                <button type="button" class="button_add" onclick="addItem()">+</button>
+                <button type="button" class="button_remvoe" onclick="removeItem(this)">-</button>
+            </div>
+            <label for="key1">키값</label><input id="key1" type="text" name="contentList[1].key" value="$BRITH$"/><br/>
+            <label for="subject1">제목</label><input id="subject1" type="text" name="contentList[1].subject" value="생년월일"/><br/>
+            <label for="content1">내용</label><input id="content1" type="text" name="contentList[1].content" value=""/><br/>
+        </div>
+
+        <div class="item">
+            <div>
+                <button type="button" class="button_add" onclick="addItem()">+</button>
+                <button type="button" class="button_remvoe" onclick="removeItem(this)">-</button>
+            </div>
+            <label for="key2">키값</label><input id="key2" type="text" name="contentList[2].key" value="$MOBILE$"/><br/>
+            <label for="subject2">제목</label><input id="subject2" type="text" name="contentList[2].subject" value="휴대전화번호"/><br/>
+            <label for="content2">내용</label><input id="content2" type="text" name="contentList[2].content" value=""/><br/>
+        </div>
+
+        <div class="item">
+            <div>
+                <button type="button" class="button_add" onclick="addItem()">+</button>
+                <button type="button" class="button_remvoe" onclick="removeItem(this)">-</button>
+            </div>
+            <label for="key3">키값</label><input id="key3" type="text" name="contentList[3].key" value="$EMAIL$"/><br/>
+            <label for="subject3">제목</label><input id="subject3" type="text" name="contentList[3].subject" value="이메일주소"/><br/>
+            <label for="content3">내용</label><input id="content3" type="text" name="contentList[3].content" value=""/><br/>
+        </div>
+    </div>
+
+
+    <fieldset>
+        <legend>이메일</legend>
+        <input type="email" name="email">
+    </fieldset>
+    <button type="submit">SUBMIT</button>
+</form>
+<script id="item_template" type="text/html">
+    <div class="item">
+        <div>
+            <button type="button" class="button_add" onclick="addItem()">+</button>
+            <button type="button" class="button_remvoe" onclick="removeItem(this)">-</button>
+        </div>
+        <label for="key${INDEX}">키값</label><input id="key${INDEX}" type="text" name="contentList[${INDEX}].key"/><br/>
+        <label for="subject${INDEX}">제목</label><input id="subject${INDEX}" type="text" name="contentList[${INDEX}].subject"/><br/>
+        <label for="content${INDEX}">내용</label><input id="content${INDEX}" type="text" name="contentList[${INDEX}].content"/><br/>
+    </div>
+</script>
+
+<script th:if="${not #strings.isEmpty(message)}">
+    alert("[[${message}]]");
+</script>
+
+<script type="text/javascript">
+    let index = 4;
+    const templateElement = document.getElementById("item_template");
+    const templateSrc = templateElement.innerHTML;
+    const baseElement = document.getElementById("items");
+
+    function addItem() {
+        baseElement.insertAdjacentHTML('beforeend',templateSrc.replaceAll("${INDEX}", index+""));
+        index++;
+    }
+
+    function removeItem(obj) {
+        const item = obj.parentElement.parentElement;
+        console.log(item);
+        item.remove();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>미리보기</title>
+    <style>
+        @font-face {
+            font-family : 'Noto Sans KR';
+            src : url(/font/NotoSansKR-Regular.ttf);
+        }
+
+        .main {
+            width: 400px;
+            padding: 30px;
+            border: 1px #999 solid;
+            background-color: #999;
+            color: #222;
+        }
+
+        .top {
+
+            min-height: 600px;
+
+
+        }
+
+        .top table {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .top table, .top tr, .top td {
+            border-collapse: collapse;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .top th {
+            padding-right: 10px;
+            text-align: right;
+            width: 50%; height: 40px;
+            border-right: #888 1px solid;
+        }
+        .top td {text-indent: 10px;}
+
+        .bottom {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <h1 style="text-align: center">샘플 이력서</h1>
+        <hr/>
+        <table>
+            <th:block th:each="item:${resultList}">
+                <tr th:if="${not #strings.isEmpty(item.key)}">
+                    <th th:text="${item.subject}"></th>
+                    <td th:text="${item.content}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div class="bottom">
+        <img src="/gonet_ci.png" alt="지오넷 로고">
+    </div>
+</div>
+</body>
+</html>
